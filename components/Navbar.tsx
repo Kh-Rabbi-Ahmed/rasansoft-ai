@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const navLinks = [
   { href: "/#about", label: "About" },
@@ -13,18 +13,21 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const [theme, setTheme] = useState<"light" | "dark">(() => {
-    if (typeof window === "undefined") {
-      return "light";
-    }
-
-    return localStorage.getItem("theme") === "dark" ? "dark" : "light";
-  });
-
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+    try {
+      const storedTheme = localStorage.getItem("theme");
+      document.documentElement.classList.toggle("dark", storedTheme === "dark");
+    } catch {
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const isDark = document.documentElement.classList.toggle("dark");
+    try {
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    } catch {}
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-slate-50/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
@@ -51,11 +54,12 @@ export default function Navbar() {
         <div className="flex items-center gap-2 sm:gap-3">
           <button
             type="button"
-            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            onClick={toggleTheme}
             aria-label="Toggle dark mode"
             className="rounded-lg border border-slate-300 p-2 text-slate-700 transition hover:-translate-y-0.5 hover:shadow-md dark:border-slate-700 dark:text-slate-200"
           >
-            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+            <Moon size={18} className="block dark:hidden" />
+            <Sun size={18} className="hidden dark:block" />
           </button>
           <Link
             href="/#contact"

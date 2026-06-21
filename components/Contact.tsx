@@ -26,6 +26,7 @@ export default function Contact() {
         </div>
 
         <form className="space-y-4 rounded-xl border border-slate-200 bg-slate-50 p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <p className="text-xs text-slate-500 dark:text-slate-400">UI preview only — backend submission is not wired yet.</p>
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
               Name
@@ -63,7 +64,7 @@ export default function Contact() {
             />
           </div>
           <button
-            type="submit"
+            type="button"
             className="rounded-xl bg-amber-500 px-5 py-2.5 font-semibold text-slate-900 transition hover:-translate-y-0.5 hover:bg-amber-400"
           >
             Send message

@@ -39,7 +39,7 @@ export default function Portfolio() {
                   </span>
                 ))}
               </div>
-              <Link href="#" className="mt-6 inline-block text-sm font-semibold text-amber-600 hover:text-amber-500">
+              <Link href="/#contact" className="mt-6 inline-block text-sm font-semibold text-amber-600 hover:text-amber-500">
                 View project →
               </Link>
             </article>
